@@ -1,0 +1,79 @@
+package repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import entity.Conta;
+
+
+public interface IRepositorioConta {
+
+    void inserirConta(Conta c);
+    void alterarConta(Conta c);
+    void removerConta(Conta c);
+
+         Conta buscarConta(int numero);
+    boolean verificarExistenciaDeConta(int numero);
+            List<Conta> buscarTodas();
+}
+
+public interface IContaService {
+
+    void cadastrarConta(Conta conta);
+    Conta buscarConta(int numero);
+    void removerConta(int numero);
+    void atualizarConta(Conta conta);
+
+    boolean verificarExistenciaConta(int numero);
+    List<Conta> listarContas();
+}
+
+
+public class ContaService implements IContaService {
+
+    private IRepositorioConta repositorioConta;
+
+    public ContaService(IRepositorioConta repositorioConta) {
+        this.repositorioConta = repositorioConta;
+    }
+
+    @Override
+
+    public void cadastrarConta(Conta conta) {
+
+        repositorioConta.inserirConta(conta);
+    }
+
+    @
+
+    public Conta buscarConta(int numero) {
+        return repositorioConta.buscarConta(numero);
+    }
+
+    @Override
+    public void removerConta(int numero) {
+
+        Conta conta = repositorioConta.buscarConta(numero);
+        if (conta != null) {
+            repositorioConta.removerConta(conta);
+        }
+    }
+
+    @Override
+
+    public void atualizarConta(Conta conta) {
+        repositorioConta.alterarConta(conta);
+    }
+
+    @Override
+
+    public boolean verificarExistenciaConta(int numero) {
+
+        return repositorioConta.verificarExistenciaDeConta(numero);
+    }
+
+    @Override
+
+    public List<Conta> listarContas() {
+        return repositorioConta.buscarTodas();
+    }
+}
